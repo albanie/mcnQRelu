@@ -103,13 +103,9 @@ namespace vl { namespace impl {
             T* output,
             T const* data,
             T const leak,
-            size_t outWidth,
-            size_t outHeight,
-            size_t outDepth,
-            size_t batchSize)
+            size_t outSize)
     {
-      size_t size = outWidth * outHeight * outDepth * batchSize ;
-      reluForwardGPU<T>(size, data, output, leak) ;
+      reluForwardGPU<T>(outSize, data, output, leak) ;
 
       cudaError_t status = cudaPeekAtLastError() ;
       return (status == cudaSuccess) ? vl::VLE_Success : vl::VLE_Cuda ;
@@ -126,13 +122,9 @@ namespace vl { namespace impl {
              T const* data,
              T const* derOutput,
              T const leak,
-             size_t outWidth,
-             size_t outHeight,
-             size_t outDepth,
-             size_t batchSize)
+             size_t outSize)
     {
-      size_t size = outWidth * outHeight * outDepth * batchSize ;
-      reluBackwardGPU<T>(size, data, derOutput, derData, leak) ;
+      reluBackwardGPU<T>(outSize, data, derOutput, derData, leak) ;
 
       cudaError_t status = cudaPeekAtLastError() ;
       return (status == cudaSuccess) ? vl::VLE_Success : vl::VLE_Cuda ;

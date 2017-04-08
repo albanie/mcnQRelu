@@ -33,10 +33,7 @@ error = vl::impl::quickrelu<deviceType, T>::forward \
 (T*) output.getMemory(), \
 (T const*) data.getMemory(), \
 (T) leak, \
-output.getHeight(), \
-output.getWidth(), \
-output.getDepth(), \
-output.getSize()) ;
+output.getNumElements()) ;
 
 #define DISPATCH2(deviceType) \
 switch (T) { \
@@ -91,10 +88,7 @@ error = vl::impl::quickrelu<deviceType, T>::backward \
 (T const*) data.getMemory(), \
 (T const*) derOutput.getMemory(), \
 leak, \
-derOutput.getHeight(), \
-derOutput.getWidth(), \
-derOutput.getDepth(), \
-derOutput.getSize()) ;
+derData.getNumElements()) ;
 
 #define DISPATCH2(deviceType) \
 switch (T) { \

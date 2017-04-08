@@ -26,10 +26,7 @@ namespace vl { namespace impl {
             T* output,
             T const* data,
             T leak, 
-            size_t outHeight,
-            size_t outWidth,
-            size_t outDepth,
-            size_t batchSize) ;
+            size_t outSize) ;
 
     static vl::ErrorCode
     backward(Context& context,
@@ -37,10 +34,7 @@ namespace vl { namespace impl {
              T const* data,
              T const* derOutput,
              T leak,
-             size_t outHeight,
-             size_t outWidth,
-             size_t outDepth,
-             size_t batchSize) ;
+             size_t outSize) ;
   } ;
 
 } }

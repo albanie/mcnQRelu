@@ -30,21 +30,17 @@ namespace vl { namespace impl {
     forward(Context& context,
             T* output,
             T const* data,
-            float const leak,
-            size_t outWidth,
-            size_t outHeight,
-            size_t outDepth,
-            size_t batchSize)
+            T const leak,
+            size_t outSize)
     {
-      size_t size = outWidth * outHeight * outDepth * batchSize ;
       T zero = T(0) ;
       if (abs(leak) > 1e7) {
-        for (int i = 0 ; i < size ; ++i) {
+        for (int i = 0 ; i < outSize ; ++i) {
           T in = data[i] ;
           output[i] = std::max(in, zero) + leak * std::min(zero, in) ;
         }
       } else {
-        for (int i = 0 ; i < size ; ++i) {
+        for (int i = 0 ; i < outSize ; ++i) {
           output[i] = std::max(data[i], zero) ;
         }
       }
@@ -61,21 +57,17 @@ namespace vl { namespace impl {
              T* derData,
              T const* data,
              T const* derOutput,
-             float const leak,
-             size_t outWidth,
-             size_t outHeight,
-             size_t outDepth,
-             size_t batchSize)
+             T const leak,
+             size_t outSize)
     {
-      size_t size = outWidth * outHeight * outDepth * batchSize ;
       T zero = T(0) ;
       if (abs(leak) > 1e7) {
-        for (int i = 0 ; i < size ; ++i) {
+        for (int i = 0 ; i < outSize ; ++i) {
           T in = data[i] ;
           derData[i] = derOutput[i] * (in > 0) + leak * (in <= 0) ;
         }
       } else {
-        for (int i = 0 ; i < size ; ++i) {
+        for (int i = 0 ; i < outSize ; ++i) {
           derData[i] = derOutput[i] * (data[i] > 0) ;
         }
       }
