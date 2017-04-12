@@ -1,5 +1,3 @@
-Grave warning: this module contains *untested code*.
-
 ## QRelu
 
 This module is arguably unnecessary, and exists only for those who 
